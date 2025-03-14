@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oscreate ライブラリのデモ</title>
+    <style>
+        .os-window { width: 300px; height: 200px; border: 1px solid #000; position: absolute; background-color: white; }
+        .os-window-header { background: #4CAF50; padding: 10px; cursor: move; color: white; display: flex; justify-content: space-between; }
+        .os-window-content { padding: 10px; height: 100%; overflow: auto; }
+
+        .os-file-icon {
+            width: 100px; height: 50px; margin: 10px; background-color: lightgray; text-align: center; line-height: 50px;
+            cursor: pointer; position: absolute;
+        }
+
+        .os-explorer-menu button {
+            margin-bottom: 10px; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="createWindow()">ウィンドウを作成</button>
+    <button onclick="createFileExplorer()">エクスプローラーを作成</button>
+
+    <script src="oscreate.js"></script>
+    <script>
+        function createWindow() {
+            oscreate.createWindow('window1', {
+                title: 'ウィンドウ1',
+                content: '<p>ここにコンテンツが入ります</p>'
+            });
+        }
+
+        function createFileExplorer() {
+            const explorer = oscreate.createWindow('explorer1', {
+                title: 'ファイルエクスプローラー',
+                content: ''
+            });
+
+            const container = explorer.querySelector('.os-window-content');
+
+            // エクスプローラー用メニューを自由に指定
+            oscreate.createExplorerMenu(container, [
+                { label: 'コピー (C)', action: () => alert('コピー操作') },
+                { label: '貼り付け (V)', action: () => alert('貼り付け操作') },
+                { label: '印刷 (P)', action: () => alert('印刷操作') },
+                { label: '新規ファイル', action: () => alert('新規ファイル作成') }
+            ]);
+        }
+    </script>
+
+</body>
+</html>
